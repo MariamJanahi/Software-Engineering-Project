@@ -11,7 +11,7 @@ public class main {
 
         while (choice != 5) {
 
-            System.out.println("\nBook Tracker");
+            System.out.println("\n====Book Tracker====");
             System.out.println("1. Add a New Book");
             System.out.println("2. Update Reading Progress");
             System.out.println("3. View a Book's Progress");
@@ -46,21 +46,16 @@ public class main {
                     input.nextLine();
 
                     if (title.isEmpty() || totalPages <= 0) {
-                        System.out.println(
-                                "Title cannot be empty and pages must be positive."
-                        );
+                        System.out.println("Title cannot be empty and pages must be positive.");
                         break;
                     }
 
-                    ReadingProgress newBook =
-                            new ReadingProgress(title, totalPages);
+                    ReadingProgress newBook = new ReadingProgress(title, totalPages);
 
                     if (data.addBook(newBook)) {
                         System.out.println("Book added successfully!");
                     } else {
-                        System.out.println(
-                                "A book with this title already exists."
-                        );
+                        System.out.println("A book with this title already exists.");
                     }
                     break;
 
@@ -68,8 +63,7 @@ public class main {
                     System.out.print("Enter book title: ");
                     String updateTitle = input.nextLine().trim();
 
-                    ReadingProgress updateBook =
-                            data.getProgress(updateTitle);
+                    ReadingProgress updateBook = data.getProgress(updateTitle);
 
                     if (updateBook == null) {
                         System.out.println("Book not found.");
@@ -89,9 +83,7 @@ public class main {
 
                     try {
                         updateBook.updateCurrentPage(page);
-                        System.out.println(
-                                "Reading progress updated successfully!"
-                        );
+                        System.out.println("Reading progress updated successfully!");
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
                     }
@@ -101,29 +93,17 @@ public class main {
                     System.out.print("Enter book title: ");
                     String viewTitle = input.nextLine().trim();
 
-                    ReadingProgress book =
-                            data.getProgress(viewTitle);
+                    ReadingProgress book = data.getProgress(viewTitle);
 
                     if (book == null) {
                         System.out.println("Book not found.");
                     } else {
                         System.out.println("\n--- Reading Progress ---");
-                        System.out.println(
-                                "Book: " + book.getBookTitle()
-                        );
-                        System.out.println(
-                                "Current Page: " + book.getCurrentPage()
-                        );
-                        System.out.println(
-                                "Total Pages: " + book.getTotalPages()
-                        );
-                        System.out.printf(
-                                "Progress: %.1f%%%n",
-                                book.getProgressPercentage()
-                        );
-                        System.out.println(
-                                "Remaining Pages: " + book.getRemainingPages()
-                        );
+                        System.out.println("Book: " + book.getBookTitle());
+                        System.out.println("Current Page: " + book.getCurrentPage());
+                        System.out.println("Total Pages: " + book.getTotalPages());
+                        System.out.printf("Progress: %.1f%%%n",book.getProgressPercentage());
+                        System.out.println("Remaining Pages: " + book.getRemainingPages());
                     }
                     break;
 
@@ -134,13 +114,7 @@ public class main {
                         System.out.println("No books added yet.");
                     } else {
                         for (ReadingProgress b : data.getAllBooks()) {
-                            System.out.printf(
-                                    "%s | Page %d/%d | Progress: %.1f%%%n",
-                                    b.getBookTitle(),
-                                    b.getCurrentPage(),
-                                    b.getTotalPages(),
-                                    b.getProgressPercentage()
-                            );
+                            System.out.printf("%s | Page %d/%d | Progress: %.1f%%%n", b.getBookTitle(), b.getCurrentPage(), b.getTotalPages(), b.getProgressPercentage());
                         }
                     }
                     break;
@@ -150,12 +124,9 @@ public class main {
                     break;
 
                 default:
-                    System.out.println(
-                            "Invalid choice. Choose from 1 to 5."
-                    );
+                    System.out.println("Invalid choice. Choose from 1 to 5.");
             }
         }
-
         input.close();
     }
 }
