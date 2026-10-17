@@ -1,11 +1,13 @@
-
+// represnting a single book entity  with it details . 
 public class Book {
+ // book attributes .  
     private int BookID;
     private String Title ;
     private String Author;
     private String Genre;
     private String Status;
 
+// constructor to initialize a new book object . 
     public Book(int bookId , String title , String author , String genre, String status){
         this.BookID = bookId;
         this.Title = title;
@@ -13,6 +15,8 @@ public class Book {
         this.Genre = genre;
         this.Status = status;
     }
+
+// getters and setter .
     public int getBookID() {
         return BookID;
     }
