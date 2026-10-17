@@ -8,7 +8,7 @@ public class ReadingStatusRecord {
     private final int totalPages;      // total pages (0 if no progress record exists)
     private final int currentPage;     // pages reached so far
     private final boolean hasProgress; // true if a reading-progress record exists for this book
-    private ReadingStatus status;      // final status, decided by the business layer
+    private String status;             // final status text, decided by the business layer
 
     // Creates a record. The status starts as UNKNOWN until the business layer sets it.
     public ReadingStatusRecord(String title, String author, String genre, String storedStatus,
@@ -44,9 +44,9 @@ public class ReadingStatusRecord {
     // Returns true if a reading-progress record exists for this book.
     public boolean hasProgress() { return hasProgress; }
 
-    // Returns the final reading status.
-    public ReadingStatus getStatus() { return status; }
+    // Returns the final reading status text (one of the ReadingStatus constants).
+    public String getStatus() { return status; }
 
     // Sets the final reading status (called by the business layer).
-    public void setStatus(ReadingStatus status) { this.status = status; }
+    public void setStatus(String status) { this.status = status; }
 }

@@ -1,5 +1,4 @@
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 // PRESENTATION LAYER for the Viewing Reading Status use case.
@@ -62,7 +61,7 @@ public class ReadingStatusView {
         }
         for (ReadingStatusRecord record : records) {
             System.out.printf("%s by %s | %s | Progress: %.1f%%%n",
-                    record.getTitle(), record.getAuthor(), record.getStatus().getLabel(),
+                    record.getTitle(), record.getAuthor(), record.getStatus(),
                     service.calculateProgressPercent(record));
         }
     }
@@ -96,7 +95,7 @@ public class ReadingStatusView {
             System.out.println("Book: " + record.getTitle());
             System.out.println("Author: " + record.getAuthor());
             System.out.println("Genre: " + record.getGenre());
-            System.out.println("Status: " + record.getStatus().getLabel());
+            System.out.println("Status: " + record.getStatus());
             if (record.hasProgress()) {
                 System.out.println("Pages: " + record.getCurrentPage() + " / " + record.getTotalPages());
                 System.out.printf("Progress: %.1f%%%n", service.calculateProgressPercent(record));
@@ -108,13 +107,15 @@ public class ReadingStatusView {
         }
     }
 
-    // Prints how many books are in each status (UNKNOWN only if there are any).
+    // Prints how many books are in each status (Unknown only if there are any).
     private void showSummary() {
         System.out.println("\n--- Status Summary ---");
-        for (Map.Entry<ReadingStatus, Integer> entry : service.getStatusSummary().entrySet()) {
-            if (entry.getKey() != ReadingStatus.UNKNOWN || entry.getValue() > 0) {
-                System.out.println(entry.getKey().getLabel() + ": " + entry.getValue());
-            }
+        System.out.println(ReadingStatus.TO_READ + ": " + service.countBooksByStatus(ReadingStatus.TO_READ));
+        System.out.println(ReadingStatus.READING + ": " + service.countBooksByStatus(ReadingStatus.READING));
+        System.out.println(ReadingStatus.FINISHED + ": " + service.countBooksByStatus(ReadingStatus.FINISHED));
+        int unknown = service.countBooksByStatus(ReadingStatus.UNKNOWN);
+        if (unknown > 0) { // only show Unknown when at least one book has it
+            System.out.println(ReadingStatus.UNKNOWN + ": " + unknown);
         }
     }
 }

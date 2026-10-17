@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 // BUSINESS LAYER for the Viewing Reading Status use case.
 // Decides each book's status, filters books, and calculates progress and counts.
@@ -26,14 +24,14 @@ public class ReadingStatusService {
         return records;
     }
 
-    // Returns only the books that have the given status.
-    public List<ReadingStatusRecord> viewBooksByStatus(ReadingStatus status) {
+    // Returns only the books that have the given status (one of the ReadingStatus constants).
+    public List<ReadingStatusRecord> viewBooksByStatus(String status) {
         if (status == null) {
             throw new IllegalArgumentException("Status must not be null.");
         }
         List<ReadingStatusRecord> result = new ArrayList<>();
         for (ReadingStatusRecord record : viewAllBooks()) {
-            if (record.getStatus() == status) {
+            if (record.getStatus().equals(status)) {
                 result.add(record);
             }
         }
@@ -66,23 +64,22 @@ public class ReadingStatusService {
         return (double) record.getCurrentPage() / record.getTotalPages() * 100;
     }
 
-    // Counts how many books are in each status (0 if none).
-    public Map<ReadingStatus, Integer> getStatusSummary() {
-        Map<ReadingStatus, Integer> summary = new EnumMap<>(ReadingStatus.class);
-        for (ReadingStatus status : ReadingStatus.values()) {
-            summary.put(status, 0);
-        }
+    // Counts how many books have the given status (0 if none).
+    public int countBooksByStatus(String status) {
+        int count = 0; // starts at zero and goes up by one for each matching book
         for (ReadingStatusRecord record : viewAllBooks()) {
-            summary.put(record.getStatus(), summary.get(record.getStatus()) + 1);
+            if (record.getStatus().equals(status)) {
+                count++;
+            }
         }
-        return summary;
+        return count;
     }
 
     // Decides a book's status.
     // Rule 1: if a progress record exists, use the pages (0 = To Read, all pages = Finished,
     //         anything in between = Reading).
     // Rule 2: otherwise, understand the status text typed in the Managing Books use case.
-    public ReadingStatus determineStatus(ReadingStatusRecord record) {
+    public String determineStatus(ReadingStatusRecord record) {
         if (record.hasProgress() && record.getTotalPages() > 0) {
             if (record.getCurrentPage() <= 0) {
                 return ReadingStatus.TO_READ;
@@ -95,9 +92,9 @@ public class ReadingStatusService {
         return parseStatusText(record.getStoredStatus());
     }
 
-    // Converts free text such as "reading" or "to read" into a ReadingStatus.
+    // Converts free text such as "reading" or "to read" into one of the ReadingStatus constants.
     // The order of the checks matters because "to read" also contains "read".
-    public ReadingStatus parseStatusText(String text) {
+    public String parseStatusText(String text) {
         if (text == null) {
             return ReadingStatus.UNKNOWN;
         }
