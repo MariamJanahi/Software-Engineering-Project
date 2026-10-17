@@ -3,6 +3,11 @@ import java.time.LocalDate;
 /**
  * Represents one entry in the reading journal.
  * <p>
+ * This is the entity of the Managing Reading Journal use case, so it belongs to the business layer.
+ * {@link JournalStorage} in the data layer stores these objects, and {@link JournalManager} decides
+ * what is allowed to change in them.
+ * </p>
+ * <p>
  * An entry is about one book, identified by its title, and is dated the day it was written.
  * It can hold the reader's notes and thoughts, a review, a star rating from 1 to 5, or any mix
  * of the three. At least one of them is always filled in, this is checked by
@@ -10,7 +15,7 @@ import java.time.LocalDate;
  * a few notes while reading and a review with a rating at the end.
  * </p>
  * <p>
- * The entry ID is given by {@link JournalData} when the entry is stored, so the entry can be
+ * The entry ID is given by {@link JournalStorage} when the entry is stored, so the entry can be
  * found again later to edit or delete it.
  * </p>
  * @author Khadija Saeed Albasri 202200734
@@ -28,7 +33,7 @@ public class JournalEntry {
      * Creates a journal entry dated today. The date edited starts as null because the entry
      * has not been edited yet.
      *
-     * @param entryId the unique ID given to this entry by the data layer
+     * @param entryId the unique ID given to this entry by {@link JournalStorage}
      * @param bookTitle the title of the book the entry is about
      * @param notes the reader's notes and thoughts, or an empty string if there are none
      * @param review the review of the book, or an empty string if there is none

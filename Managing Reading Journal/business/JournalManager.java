@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * Handles the rules of the Managing Reading Journal use case.
  * <p>
  * This is the business layer. The presentation layer calls this class to add, edit and delete
- * journal entries. Before anything is saved in {@link JournalData}, this class checks it:
+ * journal entries. Before anything is saved in {@link JournalStorage}, this class checks it:
  * </p>
  * <ul>
  *     <li>the book title cannot be empty</li>
@@ -25,23 +25,23 @@ public class JournalManager {
     public static final int MAX_RATING = 5;
     public static final int NO_RATING = 0;
 
-    private JournalData data;
+    private JournalStorage storage;
 
     /**
-     * Creates a manager with a new, empty journal. This is the constructor the menu uses.
+     * Creates a manager with new, empty storage. This is the constructor the menu uses.
      */
     public JournalManager() {
-        this(new JournalData());
+        this(new JournalStorage());
     }
 
     /**
-     * Creates a manager that works on a journal passed in from outside. This is mainly for the
-     * JUnit tests, so a test can set up a journal and then check what the manager did to it.
+     * Creates a manager that works on storage passed in from outside. This is mainly for the
+     * JUnit tests, so a test can set up the storage and then check what the manager did to it.
      *
-     * @param data the journal to read from and save to
+     * @param storage the storage to read entries from and save them to
      */
-    public JournalManager(JournalData data) {
-        this.data = data;
+    public JournalManager(JournalStorage storage) {
+        this.storage = storage;
     }
 
     /**
@@ -69,7 +69,7 @@ public class JournalManager {
         if (cleanNotes.isEmpty() && cleanReview.isEmpty() && rating == NO_RATING) {
             throw new IllegalArgumentException("A journal entry needs at least a note, a review or a rating.");
         }
-        return data.addEntry(bookTitle.trim(), cleanNotes, cleanReview, rating);
+        return storage.addEntry(bookTitle.trim(), cleanNotes, cleanReview, rating);
     }
 
     /**
@@ -81,7 +81,7 @@ public class JournalManager {
      * @throws IllegalArgumentException if the new notes are empty
      */
     public boolean editNotes(int entryId, String newNotes) {
-        JournalEntry entry = data.getEntry(entryId);
+        JournalEntry entry = storage.getEntry(entryId);
         if (entry == null) {
             return false;
         }
@@ -99,7 +99,7 @@ public class JournalManager {
      * @throws IllegalArgumentException if the new review is empty
      */
     public boolean editReview(int entryId, String newReview) {
-        JournalEntry entry = data.getEntry(entryId);
+        JournalEntry entry = storage.getEntry(entryId);
         if (entry == null) {
             return false;
         }
@@ -117,7 +117,7 @@ public class JournalManager {
      * @throws IllegalArgumentException if the rating is not 1 to 5
      */
     public boolean editRating(int entryId, int newRating) {
-        JournalEntry entry = data.getEntry(entryId);
+        JournalEntry entry = storage.getEntry(entryId);
         if (entry == null) {
             return false;
         }
@@ -134,7 +134,7 @@ public class JournalManager {
      * @throws IllegalArgumentException if the entry has no notes, or the notes are the only part left
      */
     public boolean removeNotes(int entryId) {
-        JournalEntry entry = data.getEntry(entryId);
+        JournalEntry entry = storage.getEntry(entryId);
         if (entry == null) {
             return false;
         }
@@ -151,7 +151,7 @@ public class JournalManager {
      * @throws IllegalArgumentException if the entry has no review, or the review is the only part left
      */
     public boolean removeReview(int entryId) {
-        JournalEntry entry = data.getEntry(entryId);
+        JournalEntry entry = storage.getEntry(entryId);
         if (entry == null) {
             return false;
         }
@@ -168,7 +168,7 @@ public class JournalManager {
      * @throws IllegalArgumentException if the entry has no rating, or the rating is the only part left
      */
     public boolean removeRating(int entryId) {
-        JournalEntry entry = data.getEntry(entryId);
+        JournalEntry entry = storage.getEntry(entryId);
         if (entry == null) {
             return false;
         }
@@ -184,7 +184,7 @@ public class JournalManager {
      * @return true if the entry was deleted, false if no entry has that ID
      */
     public boolean deleteEntry(int entryId) {
-        return data.deleteEntry(entryId);
+        return storage.deleteEntry(entryId);
     }
 
     /**
@@ -194,7 +194,7 @@ public class JournalManager {
      * @return the entry, or null if no entry has that ID
      */
     public JournalEntry getEntry(int entryId) {
-        return data.getEntry(entryId);
+        return storage.getEntry(entryId);
     }
 
     /**
@@ -203,7 +203,7 @@ public class JournalManager {
      * @return all entries in the order they were written, empty if there are none
      */
     public ArrayList<JournalEntry> getAllEntries() {
-        return data.getAllEntries();
+        return storage.getAllEntries();
     }
 
     /**
@@ -212,7 +212,7 @@ public class JournalManager {
      * @return the number of entries
      */
     public int getEntryCount() {
-        return data.getEntryCount();
+        return storage.getEntryCount();
     }
 
     /**

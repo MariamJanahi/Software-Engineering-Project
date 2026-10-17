@@ -3,21 +3,25 @@ import java.util.ArrayList;
 /**
  * Stores all the journal entries while the program is running.
  * <p>
- * This is the data layer of the Managing Reading Journal use case. It keeps the entries in an
- * {@link ArrayList} and hands out a new ID for every entry it stores, starting from 1, so no two
- * entries share an ID. It does not check whether the data makes sense, that is done by
- * {@code JournalManager} in the business layer before anything reaches this class.
+ * This is the data layer of the Managing Reading Journal use case. It holds the whole list of
+ * {@link JournalEntry} objects in an {@link ArrayList}, and adds, finds and removes entries in it.
+ * It also hands out a new ID for every entry it stores, starting from 1, so no two entries share an ID.
+ * </p>
+ * <p>
+ * It does not check whether the data makes sense, that is done by {@link JournalManager} in the
+ * business layer before anything reaches this class. The entries are kept in memory, so this is the
+ * only class that would need to change to save them to a file instead.
  * </p>
  * @author Khadija Saeed Albasri 202200734
  */
-public class JournalData {
+public class JournalStorage {
     private ArrayList<JournalEntry> entries;
     private int nextEntryId;
 
     /**
      * Creates an empty journal. The first entry stored will get the ID 1.
      */
-    public JournalData() {
+    public JournalStorage() {
         entries = new ArrayList<>();
         nextEntryId = 1;
     }
