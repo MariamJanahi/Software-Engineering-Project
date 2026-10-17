@@ -1,5 +1,4 @@
 public class ReadingProgress {
-
     private String bookTitle; // Stores the title of the book.
     private int totalPages; // Stores the total number of pages in the book.
     private int currentPage; // Stores the current page reached by the reader.
