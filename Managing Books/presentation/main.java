@@ -1,11 +1,11 @@
 import java.util.Scanner;
-
+// the main class that runs the book management system .
 public class main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         BookManager Manager = new BookManager();
         int Choice = 0;
-
+        // looping until the user choises one . 
         while (Choice != 5) {
             System.out.println("\n--- Book Management System ---");
             System.out.println("1. Add Book");
@@ -14,7 +14,7 @@ public class main {
             System.out.println("4. Delete Book");
             System.out.println("5. Exit");
             System.out.print("Enter your choice (1-5): ");
-
+           // making sure  that the user enters an integer for the menu choice .
             while (!scanner.hasNextInt()) {
                 System.out.println("Error: Choice must be a number between 1 and 5.");
                 System.out.print("Enter your choice (1-5): ");
@@ -22,8 +22,9 @@ public class main {
             }
 
             Choice = scanner.nextInt();
-            scanner.nextLine();
-
+            scanner.nextLine();  // clear the input .
+            
+           // Option 1: Add a new book .
             if (Choice == 1) {
                 System.out.print("Enter Book ID: ");
                 while (!scanner.hasNextInt()) {
@@ -48,7 +49,7 @@ public class main {
 
                 Manager.AddBook(id, title, author, genre, status);
                 System.out.println("Book added successfully!");
-
+             // Option 2: Display all saved books .
             } else if (Choice == 2) {
                 System.out.println("\n--- Book List ---");
                 int count = Manager.getBookCount();
@@ -61,7 +62,7 @@ public class main {
                         System.out.println("ID: " + books[i].getBookID() + " | Title: " + books[i].getTitle() + " | Author: " + books[i].getAuthor() + " | Genre: " + books[i].getGenre() + " | Status: " + books[i].getStatus());
                     }
                 }
-
+            // Option 3: Update an existing books details .
             } else if (Choice == 3) {
                 System.out.print("Enter Book ID to update: ");
                 while (!scanner.hasNextInt()) {
@@ -71,7 +72,7 @@ public class main {
                 }
                 int id = scanner.nextInt();
                 scanner.nextLine();
-
+               // Check if the book ID exists before asking for new details .
                 boolean exists = false;
                 int count = Manager.getBookCount();
                 Book[] books = Manager.getAllBooks();
@@ -100,7 +101,7 @@ public class main {
                     Manager.UpdateBook(id, title, author, genre, status);
                     System.out.println("Book updated successfully!");
                 }
-
+             // Option 4: Delete a book by ID . 
             } else if (Choice == 4) {
                 System.out.print("Enter Book ID to delete: ");
                 while (!scanner.hasNextInt()) {
@@ -117,7 +118,7 @@ public class main {
                 } else {
                     System.out.println("Error: Book ID not found.");
                 }
-
+             // Option 5: Exit the application . 
             } else if (Choice == 5) {
                 System.out.println("Exiting application. Goodbye!");
             } else {
@@ -125,6 +126,6 @@ public class main {
             }
         }
 
-        scanner.close();
+        scanner.close();  // Close the scanner .
     }
 }
