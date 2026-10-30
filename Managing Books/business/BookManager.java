@@ -1,4 +1,3 @@
-
 public class BookManager {
 
     private Book[] books;
