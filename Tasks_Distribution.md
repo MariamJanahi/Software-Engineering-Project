@@ -12,4 +12,4 @@
   * Assigned Use Cases: Managing Reading Journal . 
     
 * Member 4 Name & ID: Noor Khalil Ali , 202308413 .
-  * Assigned Use Cases: Viewing Reading Stats .
+  * Assigned Use Cases: Viewing Reading Status .
