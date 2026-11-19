@@ -1,5 +1,7 @@
 package business;
 
+import data.Book;
+
 public class BookManager {
 
     private Book[] books;

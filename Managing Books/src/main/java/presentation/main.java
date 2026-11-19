@@ -1,5 +1,8 @@
 package presentation;
 
+import data.Book;
+import business.BookManager;
+
 import java.util.Scanner;
 // the main class that runs the book management system .
 public class main {
