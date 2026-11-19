@@ -1,4 +1,4 @@
-public class BookManager {
+ public class BookManager {
 
     private Book[] books;
     private int BookCount;
