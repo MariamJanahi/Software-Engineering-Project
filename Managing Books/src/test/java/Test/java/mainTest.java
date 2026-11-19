@@ -1,4 +1,6 @@
- import org.junit.jupiter.api.Test;
+package Test.java;
+
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 public class mainTest {
     @Test

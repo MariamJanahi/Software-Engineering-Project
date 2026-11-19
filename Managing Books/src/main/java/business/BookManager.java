@@ -1,4 +1,6 @@
- public class BookManager {
+package business;
+
+public class BookManager {
 
     private Book[] books;
     private int BookCount;

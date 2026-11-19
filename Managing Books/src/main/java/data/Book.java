@@ -1,4 +1,6 @@
- public class Book {
+package data;
+
+public class Book {
     private int BookID;
     private String Title ;
     private String Author;
