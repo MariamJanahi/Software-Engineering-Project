@@ -5,7 +5,7 @@ import data.Book;
 import business.BookManager; // include this too if BookManager is referenced in the test files
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RegressionTest4 {
+public class BookRegressionTest4 {
 
     public static boolean debug = false;
 
