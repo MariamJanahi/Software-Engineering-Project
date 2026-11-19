@@ -1,6 +1,8 @@
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import data.Book;
+import business.BookManager; // include this too if BookManager is referenced in the test files
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RegressionTest4 {
