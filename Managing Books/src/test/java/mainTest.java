@@ -1,7 +1,6 @@
-package Test.java;
-
+import presentation.main;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class mainTest {
     @Test
     public void testMainClassInstantiation() {
